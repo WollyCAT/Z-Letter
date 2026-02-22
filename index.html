@@ -1,11 +1,13 @@
- <head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Z-Letter Writer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Kaisei+Decol:wght@500;700&family=Patrick+Hand&family=Yomogi&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@700&family=Comic+Neue:wght@700&family=Coming+Soon&family=Gloria+Hallelujah&family=Handlee&family=Homemade+Apple&family=Kaisei+Decol:wght@500;700&family=Klee+One:wght@600&family=Kosugi+Maru&family=Mochiy+Pop+One&family=Patrick+Hand&family=RocknRoll+One&family=Shadows+Into+Light&family=Yomogi&family=Yuji+Syuku&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
@@ -14,29 +16,37 @@
     <main class="app-shell">
       <section class="panel controls">
         <h1>✍️ Z-Letter Animator</h1>
-        <p class="subtitle">Make cute handwritten text animations (English + 日本語).</p>
-
-        <label>
-          Text
-          <textarea id="textInput" rows="4">Hello! こんにちは！</textarea>
-        </label>
+        <p class="subtitle">Make cute handwritten text animations.</p>
 
         <div class="grid two-col">
           <label>
-            Font
-            <select id="fontSelect">
-              <option value="'Caveat', cursive">Caveat (EN)</option>
-              <option value="'Patrick Hand', cursive">Patrick Hand (EN)</option>
-              <option value="'Kaisei Decol', serif" selected>Kaisei Decol (EN/JP)</option>
-              <option value="'Yomogi', cursive">Yomogi (JP)</option>
+            Language mode
+            <select id="languageMode">
+              <option value="en" selected>English mode</option>
+              <option value="ja">日本語モード</option>
             </select>
           </label>
           <label>
             Writing speed
-            <input id="speedInput" type="range" min="0.5" max="6" step="0.1" value="2.2" />
-            <span id="speedValue">2.2s / char</span>
+            <input id="speedInput" type="range" min="0.3" max="6" step="0.1" value="1.6" />
+            <span id="speedValue">1.6s / char</span>
           </label>
         </div>
+
+        <label>
+          Text
+          <textarea id="textInput" rows="4">Hello, dreamy letters!</textarea>
+        </label>
+
+        <label id="fontEnWrap">
+          Font (English)
+          <select id="fontSelectEn"></select>
+        </label>
+
+        <label id="fontJaWrap" class="hidden">
+          フォント (日本語)
+          <select id="fontSelectJa"></select>
+        </label>
 
         <div class="grid two-col">
           <label>
@@ -53,8 +63,8 @@
         <div class="grid two-col">
           <label>
             Font size
-            <input id="sizeInput" type="range" min="40" max="220" value="112" />
-            <span id="sizeValue">112 px</span>
+            <input id="sizeInput" type="range" min="36" max="220" value="108" />
+            <span id="sizeValue">108 px</span>
           </label>
           <label>
             Background mode
@@ -71,12 +81,12 @@
             <input id="bgColorInput" type="color" value="#ffffff" />
           </label>
           <div class="swatches">
-            <button class="swatch" data-color="#ffffff" style="--sw:#ffffff"></button>
-            <button class="swatch" data-color="#000000" style="--sw:#000000"></button>
-            <button class="swatch" data-color="#ffb6c1" style="--sw:#ffb6c1"></button>
-            <button class="swatch" data-color="#add8e6" style="--sw:#add8e6"></button>
-            <button class="swatch" data-color="#98fb98" style="--sw:#98fb98"></button>
-            <button class="swatch" data-color="#fffacd" style="--sw:#fffacd"></button>
+            <button class="swatch" data-color="#ffffff" style="--sw:#ffffff" aria-label="white"></button>
+            <button class="swatch" data-color="#000000" style="--sw:#000000" aria-label="black"></button>
+            <button class="swatch" data-color="#ffb6c1" style="--sw:#ffb6c1" aria-label="pink"></button>
+            <button class="swatch" data-color="#add8e6" style="--sw:#add8e6" aria-label="blue"></button>
+            <button class="swatch" data-color="#98fb98" style="--sw:#98fb98" aria-label="green"></button>
+            <button class="swatch" data-color="#fffacd" style="--sw:#fffacd" aria-label="yellow"></button>
           </div>
         </div>
 
@@ -87,6 +97,7 @@
 
         <div class="actions">
           <button id="previewBtn">Preview</button>
+          <button id="pauseBtn">Pause</button>
           <button id="downloadBtn" class="primary">Download .webm</button>
         </div>
       </section>
