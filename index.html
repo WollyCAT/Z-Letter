@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Z-Letter Writer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Kaisei+Decol:wght@500;700&family=Patrick+Hand&family=Yomogi&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="panel controls">
+        <h1>✍️ Z-Letter Animator</h1>
+        <p class="subtitle">Make cute handwritten text animations (English + 日本語).</p>
+
+        <label>
+          Text
+          <textarea id="textInput" rows="4">Hello! こんにちは！</textarea>
+        </label>
+
+        <div class="grid two-col">
+          <label>
+            Font
+            <select id="fontSelect">
+              <option value="'Caveat', cursive">Caveat (EN)</option>
+              <option value="'Patrick Hand', cursive">Patrick Hand (EN)</option>
+              <option value="'Kaisei Decol', serif" selected>Kaisei Decol (EN/JP)</option>
+              <option value="'Yomogi', cursive">Yomogi (JP)</option>
+            </select>
+          </label>
+          <label>
+            Writing speed
+            <input id="speedInput" type="range" min="0.5" max="6" step="0.1" value="2.2" />
+            <span id="speedValue">2.2s / char</span>
+          </label>
+        </div>
+
+        <div class="grid two-col">
+          <label>
+            Text color
+            <input id="textColorInput" type="color" value="#ffb3d9" />
+          </label>
+          <label>
+            Stroke thickness
+            <input id="thicknessInput" type="range" min="1" max="12" value="4" />
+            <span id="thicknessValue">4 px</span>
+          </label>
+        </div>
+
+        <div class="grid two-col">
+          <label>
+            Font size
+            <input id="sizeInput" type="range" min="40" max="220" value="112" />
+            <span id="sizeValue">112 px</span>
+          </label>
+          <label>
+            Background mode
+            <select id="bgModeSelect">
+              <option value="solid" selected>Pure color</option>
+              <option value="image">Imported image</option>
+            </select>
+          </label>
+        </div>
+
+        <div id="solidBgControls">
+          <label>
+            Background color
+            <input id="bgColorInput" type="color" value="#ffffff" />
+          </label>
+          <div class="swatches">
+            <button class="swatch" data-color="#ffffff" style="--sw:#ffffff"></button>
+            <button class="swatch" data-color="#000000" style="--sw:#000000"></button>
+            <button class="swatch" data-color="#ffb6c1" style="--sw:#ffb6c1"></button>
+            <button class="swatch" data-color="#add8e6" style="--sw:#add8e6"></button>
+            <button class="swatch" data-color="#98fb98" style="--sw:#98fb98"></button>
+            <button class="swatch" data-color="#fffacd" style="--sw:#fffacd"></button>
+          </div>
+        </div>
+
+        <label id="imageBgControls" class="hidden">
+          Upload background image
+          <input id="bgImageInput" type="file" accept="image/*" />
+        </label>
+
+        <div class="actions">
+          <button id="previewBtn">Preview</button>
+          <button id="downloadBtn" class="primary">Download .webm</button>
+        </div>
+      </section>
+
+      <section class="panel preview">
+        <h2>Live Preview</h2>
+        <canvas id="previewCanvas" width="960" height="540"></canvas>
+        <p id="statusText">Ready.</p>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
