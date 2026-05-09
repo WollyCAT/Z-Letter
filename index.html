@@ -3,109 +3,77 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Z-Letter Writer</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@700&family=Comic+Neue:wght@700&family=Coming+Soon&family=Gloria+Hallelujah&family=Handlee&family=Homemade+Apple&family=Kaisei+Decol:wght@500;700&family=Klee+One:wght@600&family=Kosugi+Maru&family=Mochiy+Pop+One&family=Patrick+Hand&family=RocknRoll+One&family=Shadows+Into+Light&family=Yomogi&family=Yuji+Syuku&display=swap"
-      rel="stylesheet"
-    />
+    <title>Language Cats</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <main class="app-shell">
-      <section class="panel controls">
-        <h1>✍️ Z-Letter Animator</h1>
-        <p class="subtitle">Make cute handwritten text animations.</p>
-
-        <div class="grid two-col">
-          <label>
-            Language mode
-            <select id="languageMode">
-              <option value="en" selected>English mode</option>
-              <option value="ja">日本語モード</option>
-            </select>
-          </label>
-          <label>
-            Writing speed
-            <input id="speedInput" type="range" min="0.3" max="6" step="0.1" value="1.6" />
-            <span id="speedValue">1.6s / char</span>
-          </label>
-        </div>
-
-        <label>
-          Text
-          <textarea id="textInput" rows="4">Hello, dreamy letters!</textarea>
-        </label>
-
-        <label id="fontEnWrap">
-          Font (English)
-          <select id="fontSelectEn"></select>
-        </label>
-
-        <label id="fontJaWrap" class="hidden">
-          フォント (日本語)
-          <select id="fontSelectJa"></select>
-        </label>
-
-        <div class="grid two-col">
-          <label>
-            Text color
-            <input id="textColorInput" type="color" value="#ffb3d9" />
-          </label>
-          <label>
-            Stroke thickness
-            <input id="thicknessInput" type="range" min="1" max="12" value="4" />
-            <span id="thicknessValue">4 px</span>
-          </label>
-        </div>
-
-        <div class="grid two-col">
-          <label>
-            Font size
-            <input id="sizeInput" type="range" min="36" max="220" value="108" />
-            <span id="sizeValue">108 px</span>
-          </label>
-          <label>
-            Background mode
-            <select id="bgModeSelect">
-              <option value="solid" selected>Pure color</option>
-              <option value="image">Imported image</option>
-            </select>
-          </label>
-        </div>
-
-        <div id="solidBgControls">
-          <label>
-            Background color
-            <input id="bgColorInput" type="color" value="#ffffff" />
-          </label>
-          <div class="swatches">
-            <button class="swatch" data-color="#ffffff" style="--sw:#ffffff" aria-label="white"></button>
-            <button class="swatch" data-color="#000000" style="--sw:#000000" aria-label="black"></button>
-            <button class="swatch" data-color="#ffb6c1" style="--sw:#ffb6c1" aria-label="pink"></button>
-            <button class="swatch" data-color="#add8e6" style="--sw:#add8e6" aria-label="blue"></button>
-            <button class="swatch" data-color="#98fb98" style="--sw:#98fb98" aria-label="green"></button>
-            <button class="swatch" data-color="#fffacd" style="--sw:#fffacd" aria-label="yellow"></button>
+      <header class="topbar card">
+        <div class="brand">
+          <div class="logo-cat" aria-hidden="true">🐱</div>
+          <div>
+            <h1>Language Cats</h1>
+            <p>LLM-powered grammar checking and tone revision</p>
           </div>
         </div>
+        <button id="darkModeBtn" class="cat-btn" type="button">🌙 Dark Mode</button>
+      </header>
 
-        <label id="imageBgControls" class="hidden">
-          Upload background image
-          <input id="bgImageInput" type="file" accept="image/*" />
-        </label>
-
-        <div class="actions">
-          <button id="previewBtn">Preview</button>
-          <button id="pauseBtn">Pause</button>
-          <button id="downloadBtn" class="primary">Download .webm</button>
+      <section class="card settings">
+        <h2>API Settings</h2>
+        <div class="grid two-col">
+          <label>Provider
+            <select id="providerSelect"></select>
+          </label>
+          <label>Model
+            <select id="modelSelect"></select>
+          </label>
         </div>
+        <label>API Key
+          <input id="apiKeyInput" type="password" placeholder="Paste your API key here" />
+        </label>
+        <label>Language
+          <select id="languageSelect">
+            <option value="English">English</option>
+            <option value="Japanese">Japanese</option>
+            <option value="Chinese (Traditional)">Chinese (Traditional)</option>
+          </select>
+        </label>
       </section>
 
-      <section class="panel preview">
-        <h2>Live Preview</h2>
-        <canvas id="previewCanvas" width="960" height="540"></canvas>
-        <p id="statusText">Ready.</p>
+      <section class="card">
+        <h2>Grammar Check</h2>
+        <textarea id="grammarInput" rows="8" placeholder="Type or paste English/Japanese text here..."></textarea>
+        <div class="actions">
+          <button id="checkBtn" class="cat-btn" type="button">🐾 Check Grammar</button>
+          <button id="copyBtn" type="button">Copy Revised Text</button>
+        </div>
+        <p id="statusText" class="status">Ready.</p>
+        <div id="highlightOutput" class="highlight-output"></div>
+        <div id="issuesList" class="issues"></div>
+      </section>
+
+      <section class="card">
+        <h2>Tone Revision</h2>
+        <textarea id="toneInput" rows="6" placeholder="Type text for tone revision..."></textarea>
+        <div class="grid two-col">
+          <label>Tone
+            <select id="toneSelect">
+              <option>Formal</option>
+              <option>Casual</option>
+              <option>Harsh</option>
+              <option>Friendly</option>
+              <option>Professional</option>
+              <option>Persuasive</option>
+            </select>
+          </label>
+          <label>&nbsp;
+            <button id="reviseToneBtn" class="cat-btn" type="button">😺 Revise Tone</button>
+          </label>
+        </div>
+        <label>Revised Output
+          <textarea id="toneOutput" rows="6" readonly></textarea>
+        </label>
       </section>
     </main>
 
